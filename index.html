@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kiss Day</title>
+<title>Valentine</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -16,30 +16,16 @@ body{
   position:relative;
 }
 
-/* paper texture */
+/* soft paper background */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:
-    radial-gradient(circle at 30% 20%, #f7efe6, transparent 40%),
-    radial-gradient(circle at 70% 80%, #e8d9d0, transparent 45%);
-  opacity:.9;
+    radial-gradient(circle at 20% 30%, #f7efe6, transparent 40%),
+    radial-gradient(circle at 80% 70%, #e8d9d0, transparent 45%);
+  opacity:.95;
   z-index:0;
-}
-
-/* fog overlay */
-.fog{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,0.9);
-  backdrop-filter:blur(8px);
-  animation:clearFog 8s ease forwards;
-  z-index:3;
-}
-
-@keyframes clearFog{
-  to{opacity:0; visibility:hidden}
 }
 
 /* scene */
@@ -54,44 +40,118 @@ body::before{
   z-index:2;
 }
 
-/* card */
+/* poetry card */
 .card{
   background:rgba(255,255,255,.65);
   backdrop-filter:blur(6px);
   padding:22px 26px;
   border-radius:16px;
   text-align:center;
-  animation:float 7s ease-in-out infinite;
-}
-
-.card h2{
-  font-size:20px;
-  margin-bottom:12px;
-  color:#7a3a4a;
+  margin-bottom:30px;
+  animation:float 8s ease-in-out infinite;
 }
 
 .card p{
   font-size:15px;
   line-height:1.6;
-  color:#4a2a32;
+  color:#3e2a2a;
 }
 
-/* lips */
-.lip{
-  position:fixed;
-  top:-30px;
-  width:18px;
-  height:12px;
-  background:#c43b4b;
-  border-radius:0 0 18px 18px;
-  opacity:.85;
-  animation:fall linear forwards;
-  z-index:1;
+/* bench scene */
+.bench-scene{
+  position:relative;
+  width:220px;
+  height:140px;
+  animation:slowZoom 12s ease-in-out infinite;
 }
+
+/* bench */
+.bench{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  right:20px;
+  height:8px;
+  background:#5a2d2d;
+  border-radius:4px;
+}
+
+/* people */
+.person{
+  position:absolute;
+  bottom:28px;
+  width:14px;
+  height:42px;
+  background:#5a2d2d;
+  border-radius:7px;
+}
+
+/* girl */
+.person.girl{
+  left:90px;
+}
+
+/* boy with glasses */
+.person.boy{
+  left:110px;
+  transform-origin:bottom;
+  animation:lean 10s ease-in-out infinite;
+}
+
+/* glasses hint */
+.person.boy::after{
+  content:"";
+  position:absolute;
+  top:10px;
+  left:-4px;
+  width:22px;
+  height:6px;
+  border:2px solid #5a2d2d;
+  border-radius:6px;
+}
+
+/* fountain glow */
+.fountain{
+  position:absolute;
+  top:10px;
+  left:50%;
+  width:22px;
+  height:22px;
+  background:rgba(200,160,200,0.5);
+  border-radius:50%;
+  transform:translateX(-50%);
+  animation:pulse 4s ease-in-out infinite;
+}
+
+/* flowers */
+.flower{
+  position:absolute;
+  bottom:0;
+  width:6px;
+  height:16px;
+  background:#8c5a5a;
+  border-radius:3px;
+  animation:sway 6s ease-in-out infinite;
+}
+.flower.f1{left:10px}
+.flower.f2{right:12px}
 
 /* animations */
-@keyframes fall{
-  to{transform:translateY(110vh)}
+@keyframes lean{
+  0%,100%{transform:rotate(0deg)}
+  50%{transform:rotate(-12deg)}
+}
+@keyframes pulse{
+  0%,100%{transform:translateX(-50%) scale(1);opacity:.4}
+  50%{transform:translateX(-50%) scale(1.5);opacity:.7}
+}
+@keyframes sway{
+  0%,100%{transform:rotate(0deg)}
+  50%{transform:rotate(8deg)}
+}
+@keyframes slowZoom{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
 }
 @keyframes float{
   0%,100%{transform:translateY(0)}
@@ -102,39 +162,33 @@ body::before{
 
 <body>
 
-<div class="fog"></div>
-
 <div class="scene">
+
   <div class="card">
-    <h2>Kiss Day</h2>
     <p>
-      Kiss ka din hai, par koi jaldi nahi,<br>
-      Dil jab chahe, pal jab sahi.<br><br>
-      Na koi dabav, na koi zid,<br>
-      Aapki marzi hi hamari ijazat hai.<br><br>
-      Jab aap chahein, tab kareeb aana,<br>
-      Jab aap na chahein, tab bhi muskurana,<br><br>
-      Kyunki ishq mein zabardasti nahi hoti.
+      Valentine woh phool nahi jo murjha jaaye,<br>
+      Valentine woh haath hai jo chhoot kar bhi thame.<br><br>
+      Na har roz muskaan ho, na har pal sukoon,<br>
+      Phir bhi jo har haal mein saath nibhaaye.<br><br>
+      Jazbaat badal sakte hain, waade nahi,<br>
+      Duniya khilaaf ho jaaye, par dil nahi,<br><br>
+      Bas itna sa ishq hai — jo har din chuna jaaye.
+    </p>
+    <p style="margin-top:12px;font-weight:500">
+      — Aditya ❤️ Nitika
     </p>
   </div>
-</div>
 
-<script>
-// lips fall for ~7 seconds
-let start = Date.now();
-let interval = setInterval(()=>{
-  if(Date.now() - start > 7000){
-    clearInterval(interval);
-    return;
-  }
-  let l=document.createElement("div");
-  l.className="lip";
-  l.style.left=Math.random()*100+"vw";
-  l.style.animationDuration=4+Math.random()*3+"s";
-  document.body.appendChild(l);
-  setTimeout(()=>l.remove(),8000);
-},500);
-</script>
+  <div class="bench-scene">
+    <div class="fountain"></div>
+    <div class="bench"></div>
+    <div class="person girl"></div>
+    <div class="person boy"></div>
+    <div class="flower f1"></div>
+    <div class="flower f2"></div>
+  </div>
+
+</div>
 
 </body>
 </html>
