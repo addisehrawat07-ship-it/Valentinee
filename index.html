@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hug Day</title>
+<title>Kiss Day</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -28,6 +28,20 @@ body::before{
   z-index:0;
 }
 
+/* fog overlay */
+.fog{
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(8px);
+  animation:clearFog 8s ease forwards;
+  z-index:3;
+}
+
+@keyframes clearFog{
+  to{opacity:0; visibility:hidden}
+}
+
 /* scene */
 .scene{
   position:relative;
@@ -44,77 +58,40 @@ body::before{
 .card{
   background:rgba(255,255,255,.65);
   backdrop-filter:blur(6px);
-  padding:20px 24px;
+  padding:22px 26px;
   border-radius:16px;
   text-align:center;
-  margin-bottom:28px;
   animation:float 7s ease-in-out infinite;
 }
 
 .card h2{
   font-size:20px;
-  margin-bottom:6px;
-  color:#5a3b3b;
+  margin-bottom:12px;
+  color:#7a3a4a;
 }
 
-/* hug container */
-.hug{
-  position:relative;
-  width:240px;
-  height:200px;
-  animation:breathe 6s ease-in-out infinite;
+.card p{
+  font-size:15px;
+  line-height:1.6;
+  color:#4a2a32;
 }
 
-/* person */
-.person{
-  position:absolute;
-  bottom:0;
-  width:90px;
-  height:160px;
-}
-
-/* left person */
-.person.left{
-  left:30px;
-  animation:leanLeft 8s ease-in-out infinite;
-}
-
-/* right person */
-.person.right{
-  right:30px;
-  animation:leanRight 8s ease-in-out infinite;
-}
-
-/* head */
-.head{
-  width:70px;
-  height:70px;
-  background:#d9b8a0;
-  border-radius:50%;
-  margin:0 auto;
-}
-
-/* body */
-.body{
-  width:80px;
-  height:90px;
-  background:#b58c6a;
-  border-radius:18px;
-  margin:8px auto 0;
+/* lips */
+.lip{
+  position:fixed;
+  top:-30px;
+  width:18px;
+  height:12px;
+  background:#c43b4b;
+  border-radius:0 0 18px 18px;
+  opacity:.85;
+  animation:fall linear forwards;
+  z-index:1;
 }
 
 /* animations */
-@keyframes leanLeft{
-  0%,100%{transform:translateX(0)}
-  50%{transform:translateX(14px)}
-}
-@keyframes leanRight{
-  0%,100%{transform:translateX(0)}
-  50%{transform:translateX(-14px)}
-}
-@keyframes breathe{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.03)}
+@keyframes fall{
+  to{transform:translateY(110vh)}
 }
 @keyframes float{
   0%,100%{transform:translateY(0)}
@@ -125,29 +102,39 @@ body::before{
 
 <body>
 
+<div class="fog"></div>
+
 <div class="scene">
   <div class="card">
-    <h2>Hug Day</h2>
-  </div>
-
-  <div class="hug">
-    <div class="person left">
-      <div class="head"></div>
-      <div class="body"></div>
-    </div>
-
-    <div class="person right">
-      <div class="head"></div>
-      <div class="body"></div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:24px">
-    <p style="font-size:15px;color:#4a2f2f">
-      Aisa hug kab de rahe ho?
+    <h2>Kiss Day</h2>
+    <p>
+      Kiss ka din hai, par koi jaldi nahi,<br>
+      Dil jab chahe, pal jab sahi.<br><br>
+      Na koi dabav, na koi zid,<br>
+      Aapki marzi hi hamari ijazat hai.<br><br>
+      Jab aap chahein, tab kareeb aana,<br>
+      Jab aap na chahein, tab bhi muskurana,<br><br>
+      Kyunki ishq mein zabardasti nahi hoti.
     </p>
   </div>
 </div>
+
+<script>
+// lips fall for ~7 seconds
+let start = Date.now();
+let interval = setInterval(()=>{
+  if(Date.now() - start > 7000){
+    clearInterval(interval);
+    return;
+  }
+  let l=document.createElement("div");
+  l.className="lip";
+  l.style.left=Math.random()*100+"vw";
+  l.style.animationDuration=4+Math.random()*3+"s";
+  document.body.appendChild(l);
+  setTimeout(()=>l.remove(),8000);
+},500);
+</script>
 
 </body>
 </html>
