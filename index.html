@@ -13,10 +13,9 @@ body{
   overflow:hidden;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   background:#f4efe9;
-  position:relative;
 }
 
-/* paper texture */
+/* background */
 body::before{
   content:"";
   position:fixed;
@@ -38,7 +37,6 @@ body::before{
   flex-direction:column;
   z-index:2;
 }
-
 .scene.active{display:flex}
 
 /* card */
@@ -48,23 +46,14 @@ body::before{
   padding:22px 26px;
   border-radius:16px;
   text-align:center;
-  margin-bottom:26px;
-  animation:float 7s ease-in-out infinite;
+  animation:float 6s ease-in-out infinite;
 }
+.card h2{margin-bottom:10px}
+.card p{font-size:15px;line-height:1.6}
 
-.card h2{
-  font-size:20px;
-  margin-bottom:10px;
-}
-
-.card p{
-  font-size:15px;
-  line-height:1.6;
-}
-
-/* next button */
+/* button */
 .next{
-  margin-top:12px;
+  margin-top:14px;
   background:#5a2d4f;
   color:#fff;
   border:none;
@@ -81,12 +70,8 @@ body::before{
 @keyframes fall{
   to{transform:translateY(110vh) rotate(360deg)}
 }
-@keyframes breathe{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-}
 
-/* petals */
+/* falling elements */
 .rose,.lavender,.lip{
   position:fixed;
   top:-30px;
@@ -114,7 +99,7 @@ body::before{
 
 <body>
 
-<!-- 🌹 ROSE DAY -->
+<!-- ROSE -->
 <section class="scene active" id="rose">
   <div class="card">
     <h2>Rose Day</h2>
@@ -126,31 +111,25 @@ body::before{
   </div>
 </section>
 
-<!-- 💍 PROPOSE DAY -->
+<!-- PROPOSE -->
 <section class="scene" id="propose">
   <div class="card">
     <h2>Propose Day</h2>
-    <p>
-      Kuch baatein kehne ke liye shabd nahi chahiye,<br>
-      bas ek ehsaas kaafi hota hai.
-    </p>
-    <button class="next" onclick="startAudio()">Continue</button>
+    <p>Kuch baatein shabdon se nahi hoti.</p>
+    <button class="next" onclick="startPropose()">Continue</button>
   </div>
 </section>
 
-<!-- 🧸 TEDDY DAY -->
+<!-- TEDDY -->
 <section class="scene" id="teddy">
   <div class="card">
     <h2>Teddy Day</h2>
-    <p>
-      Kabhi kabhi bina bole bhi,<br>
-      koi apna sa lagne lagta hai.
-    </p>
+    <p>Kabhi kabhi bina bole bhi koi apna lagta hai.</p>
     <button class="next" onclick="nextScene()">Next</button>
   </div>
 </section>
 
-<!-- 🤍 HUG DAY -->
+<!-- HUG -->
 <section class="scene" id="hug">
   <div class="card">
     <h2>Hug Day</h2>
@@ -159,20 +138,19 @@ body::before{
   </div>
 </section>
 
-<!-- 💋 KISS DAY -->
+<!-- KISS -->
 <section class="scene" id="kiss">
   <div class="card">
     <h2>Kiss Day</h2>
     <p>
-      Kiss ka din hai, par koi jaldi nahi,<br>
-      Dil jab chahe, pal jab sahi.<br><br>
+      Kiss ka din hai, par koi jaldi nahi.<br>
       Kyunki ishq mein zabardasti nahi hoti.
     </p>
-    <button class="next" onclick="nextScene()">Next</button>
+    <button class="next" onclick="startKiss()">Next</button>
   </div>
 </section>
 
-<!-- ❤️ VALENTINE -->
+<!-- VALENTINE -->
 <section class="scene" id="valentine">
   <div class="card">
     <p>
@@ -189,24 +167,33 @@ body::before{
 <audio id="song" src="propose.mp3"></audio>
 
 <script>
-let order=["rose","propose","teddy","hug","kiss","valentine"];
-let index=0;
+let scenes=["rose","propose","teddy","hug","kiss","valentine"];
+let i=0;
 
 function nextScene(){
-  document.getElementById(order[index]).classList.remove("active");
-  index++;
-  document.getElementById(order[index]).classList.add("active");
+  document.getElementById(scenes[i]).classList.remove("active");
+  i++;
+  document.getElementById(scenes[i]).classList.add("active");
+
+  if(scenes[i]==="teddy") clearFalls();
+  if(scenes[i]==="hug") clearFalls();
 }
 
-function startAudio(){
-  let a=document.getElementById("song");
-  a.volume=0.7;
-  a.play();
+function startPropose(){
+  document.getElementById("song").play();
   lavenderFall();
   nextScene();
 }
 
+function startKiss(){
+  lipsFall();
+  nextScene();
+}
+
 /* effects */
+function clearFalls(){
+  document.querySelectorAll(".rose,.lavender,.lip").forEach(e=>e.remove());
+}
 function roseFall(){
   for(let i=0;i<18;i++){
     let r=document.createElement("div");
@@ -235,7 +222,7 @@ function lipsFall(){
   }
 }
 
-/* auto effects */
+/* start */
 roseFall();
 </script>
 
