@@ -11,11 +11,9 @@
 body{
   height:100vh;
   overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
   background:#f4efe9;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  position:relative;
 }
 
 /* paper texture */
@@ -27,6 +25,7 @@ body::before{
     radial-gradient(circle at 30% 20%, #f7efe6, transparent 40%),
     radial-gradient(circle at 70% 80%, #e8d9d0, transparent 45%);
   opacity:.9;
+  z-index:0;
 }
 
 /* main scene */
@@ -38,16 +37,17 @@ body::before{
   align-items:center;
   justify-content:center;
   flex-direction:column;
+  z-index:2;
 }
 
 /* text card */
 .card{
-  background:rgba(255,255,255,.6);
+  background:rgba(255,255,255,.65);
   backdrop-filter:blur(6px);
   padding:22px 26px;
   border-radius:16px;
   text-align:center;
-  z-index:5;
+  margin-bottom:40px;
   animation:float 6s ease-in-out infinite;
 }
 
@@ -100,15 +100,16 @@ body::before{
 
 /* rose petals */
 .rose{
-  position:absolute;
-  top:-40px;
+  position:fixed;
+  top:-30px;
   width:18px;
   height:18px;
   background:#b23b3b;
   border-radius:50% 50% 50% 0;
   transform:rotate(45deg);
-  opacity:.8;
+  opacity:.85;
   animation:fall linear infinite;
+  z-index:1;
 }
 
 /* animations */
@@ -133,20 +134,6 @@ body::before{
 <body>
 
 <div class="scene">
-
-  <!-- falling roses -->
-  <script>
-    for(let i=0;i<18;i++){
-      let r=document.createElement("div");
-      r.className="rose";
-      r.style.left=Math.random()*100+"vw";
-      r.style.animationDuration=6+Math.random()*6+"s";
-      r.style.opacity=Math.random()*.5+.4;
-      document.body.appendChild(r);
-    }
-  </script>
-
-  <!-- message -->
   <div class="card">
     <h2>Rose Day</h2>
     <p>
@@ -155,15 +142,24 @@ body::before{
     </p>
   </div>
 
-  <!-- character -->
   <div class="character">
     <div class="head">
       <div class="hair"></div>
     </div>
     <div class="body"></div>
   </div>
-
 </div>
+
+<script>
+for(let i=0;i<22;i++){
+  let r=document.createElement("div");
+  r.className="rose";
+  r.style.left=Math.random()*100+"vw";
+  r.style.animationDuration=6+Math.random()*7+"s";
+  r.style.opacity=Math.random()*0.4+0.4;
+  document.body.appendChild(r);
+}
+</script>
 
 </body>
 </html>
