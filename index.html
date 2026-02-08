@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Propose Day</title>
+<title>Teddy Day</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -40,89 +40,139 @@ body::before{
   z-index:2;
 }
 
-/* message card */
+/* card */
 .card{
   background:rgba(255,255,255,.65);
   backdrop-filter:blur(6px);
   padding:22px 26px;
   border-radius:16px;
   text-align:center;
-  margin-bottom:40px;
+  margin-bottom:26px;
   animation:float 6s ease-in-out infinite;
 }
 
 .card h2{
   font-size:20px;
-  margin-bottom:10px;
-  color:#4a355a;
+  margin-bottom:8px;
+  color:#6b3f3f;
 }
 
 .card p{
   font-size:15px;
   line-height:1.6;
-  color:#3d2c4a;
+  color:#4a2f2f;
 }
 
-/* character */
-.character{
-  position:absolute;
-  bottom:70px;
-  width:120px;
-  height:220px;
+/* teddy */
+.teddy{
+  position:relative;
+  width:160px;
+  height:200px;
   animation:breathe 5s ease-in-out infinite;
 }
 
+/* head */
 .head{
-  width:80px;
-  height:80px;
-  background:#d9b8a0;
-  border-radius:50%;
-  margin:0 auto;
-}
-
-.hair{
   position:absolute;
-  top:-6px;
-  left:0;
-  right:0;
-  height:46px;
-  background:#3a2418;
-  border-radius:50% 50% 40% 40%;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:110px;
+  background:#caa27a;
+  border-radius:60px;
+  box-shadow:inset 0 -6px 0 rgba(0,0,0,.05);
 }
 
+/* ears */
+.ear{
+  position:absolute;
+  top:-14px;
+  width:40px;
+  height:40px;
+  background:#caa27a;
+  border-radius:50%;
+}
+.ear.left{left:-6px}
+.ear.right{right:-6px}
+
+/* eyes */
+.eye{
+  position:absolute;
+  top:42px;
+  width:10px;
+  height:10px;
+  background:#3a2a20;
+  border-radius:50%;
+  animation:blink 6s infinite;
+}
+.eye.left{left:36px}
+.eye.right{right:36px}
+
+/* body */
 .body{
-  width:110px;
-  height:130px;
-  background:#4f5b3a;
-  border-radius:18px;
-  margin:10px auto 0;
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:130px;
+  height:110px;
+  background:#caa27a;
+  border-radius:24px;
+  box-shadow:inset 0 -8px 0 rgba(0,0,0,.06);
 }
 
-/* lavender petals */
-.lavender{
-  position:fixed;
-  top:-30px;
-  width:14px;
-  height:20px;
-  background:#b49ad8;
-  border-radius:8px 8px 4px 4px;
-  opacity:.7;
-  animation:fall linear infinite;
-  z-index:1;
+/* arms */
+.arm{
+  position:absolute;
+  top:88px;
+  width:36px;
+  height:60px;
+  background:#caa27a;
+  border-radius:20px;
 }
+.arm.left{left:10px}
+.arm.right{right:10px}
+
+/* heart */
+.heart{
+  position:absolute;
+  top:118px;
+  left:50%;
+  transform:translateX(-50%) scale(0);
+  width:26px;
+  height:26px;
+  background:#c55a6a;
+  transform-origin:center;
+  animation:heartPop 5s ease-in-out infinite;
+}
+.heart::before,
+.heart::after{
+  content:"";
+  position:absolute;
+  width:26px;
+  height:26px;
+  background:#c55a6a;
+  border-radius:50%;
+}
+.heart::before{left:-13px}
+.heart::after{top:-13px}
 
 /* animations */
-@keyframes fall{
-  to{
-    transform:translateY(110vh) rotate(180deg);
-  }
-}
-
 @keyframes breathe{
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-6px)}
 }
-
+@keyframes blink{
+  0%,92%,100%{transform:scaleY(1)}
+  95%{transform:scaleY(0.1)}
+}
+@keyframes heartPop{
+  0%,40%{transform:translateX(-50%) scale(0)}
+  55%{transform:translateX(-50%) scale(1)}
+  70%{transform:translateX(-50%) scale(0.9)}
+  100%{transform:translateX(-50%) scale(0)}
+}
 @keyframes float{
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-8px)}
@@ -134,44 +184,26 @@ body::before{
 
 <div class="scene">
   <div class="card">
-    <h2>Propose Day</h2>
+    <h2>Teddy Day</h2>
     <p>
-      Kuch baatein kehne ke liye shabd nahi chahiye,<br>
-      Bas ek ehsaas kaafi hota hai.
+      Kabhi kabhi bina bole bhi,<br>
+      koi apna sa lagne lagta hai.
     </p>
   </div>
 
-  <div class="character">
+  <div class="teddy">
     <div class="head">
-      <div class="hair"></div>
+      <div class="ear left"></div>
+      <div class="ear right"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
     </div>
     <div class="body"></div>
+    <div class="arm left"></div>
+    <div class="arm right"></div>
+    <div class="heart"></div>
   </div>
 </div>
-
-<!-- Audio (hidden) -->
-<audio id="proposeAudio" src="propose.mp3"></audio>
-
-<script>
-// lavender fall
-for(let i=0;i<24;i++){
-  let l=document.createElement("div");
-  l.className="lavender";
-  l.style.left=Math.random()*100+"vw";
-  l.style.animationDuration=7+Math.random()*7+"s";
-  l.style.opacity=Math.random()*0.4+0.4;
-  document.body.appendChild(l);
-}
-
-// audio on first interaction
-let played=false;
-document.body.addEventListener("click",()=>{
-  if(!played){
-    document.getElementById("proposeAudio").play();
-    played=true;
-  }
-});
-</script>
 
 </body>
 </html>
