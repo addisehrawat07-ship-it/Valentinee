@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rose Day</title>
+<title>Propose Day</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -28,7 +28,7 @@ body::before{
   z-index:0;
 }
 
-/* main scene */
+/* scene */
 .scene{
   position:relative;
   width:100%;
@@ -40,7 +40,7 @@ body::before{
   z-index:2;
 }
 
-/* text card */
+/* message card */
 .card{
   background:rgba(255,255,255,.65);
   backdrop-filter:blur(6px);
@@ -54,13 +54,13 @@ body::before{
 .card h2{
   font-size:20px;
   margin-bottom:10px;
-  color:#5a2a2a;
+  color:#4a355a;
 }
 
 .card p{
   font-size:15px;
-  line-height:1.5;
-  color:#3e2a2a;
+  line-height:1.6;
+  color:#3d2c4a;
 }
 
 /* character */
@@ -98,16 +98,15 @@ body::before{
   margin:10px auto 0;
 }
 
-/* rose petals */
-.rose{
+/* lavender petals */
+.lavender{
   position:fixed;
   top:-30px;
-  width:18px;
-  height:18px;
-  background:#b23b3b;
-  border-radius:50% 50% 50% 0;
-  transform:rotate(45deg);
-  opacity:.85;
+  width:14px;
+  height:20px;
+  background:#b49ad8;
+  border-radius:8px 8px 4px 4px;
+  opacity:.7;
   animation:fall linear infinite;
   z-index:1;
 }
@@ -115,7 +114,7 @@ body::before{
 /* animations */
 @keyframes fall{
   to{
-    transform:translateY(110vh) rotate(360deg);
+    transform:translateY(110vh) rotate(180deg);
   }
 }
 
@@ -135,10 +134,10 @@ body::before{
 
 <div class="scene">
   <div class="card">
-    <h2>Rose Day</h2>
+    <h2>Propose Day</h2>
     <p>
-      Gulaab dena is not my thing,<br>
-      but gulab jaisa rakhna is my thing.
+      Kuch baatein kehne ke liye shabd nahi chahiye,<br>
+      Bas ek ehsaas kaafi hota hai.
     </p>
   </div>
 
@@ -150,15 +149,28 @@ body::before{
   </div>
 </div>
 
+<!-- Audio (hidden) -->
+<audio id="proposeAudio" src="propose.mp3"></audio>
+
 <script>
-for(let i=0;i<22;i++){
-  let r=document.createElement("div");
-  r.className="rose";
-  r.style.left=Math.random()*100+"vw";
-  r.style.animationDuration=6+Math.random()*7+"s";
-  r.style.opacity=Math.random()*0.4+0.4;
-  document.body.appendChild(r);
+// lavender fall
+for(let i=0;i<24;i++){
+  let l=document.createElement("div");
+  l.className="lavender";
+  l.style.left=Math.random()*100+"vw";
+  l.style.animationDuration=7+Math.random()*7+"s";
+  l.style.opacity=Math.random()*0.4+0.4;
+  document.body.appendChild(l);
 }
+
+// audio on first interaction
+let played=false;
+document.body.addEventListener("click",()=>{
+  if(!played){
+    document.getElementById("proposeAudio").play();
+    played=true;
+  }
+});
 </script>
 
 </body>
