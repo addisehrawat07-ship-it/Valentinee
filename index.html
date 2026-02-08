@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentinee</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f4efe9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow:hidden;
+}
+
+/* paper texture feel */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 30% 20%, #f7efe6, transparent 40%),
+    radial-gradient(circle at 70% 80%, #e8d9d0, transparent 45%);
+  opacity:.9;
+}
+
+/* scene container */
+.scene{
+  position:relative;
+  width:260px;
+  height:380px;
+}
+
+/* character body */
+.character{
+  position:absolute;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  width:120px;
+  height:220px;
+  animation: breathe 5s ease-in-out infinite;
+}
+
+/* head */
+.head{
+  width:80px;
+  height:80px;
+  background:#d9b8a0;
+  border-radius:50%;
+  margin:0 auto;
+}
+
+/* hair */
+.hair{
+  position:absolute;
+  top:-6px;
+  left:0;
+  right:0;
+  height:46px;
+  background:#4a2c1d;
+  border-radius:50% 50% 40% 40%;
+}
+
+/* body */
+.body{
+  width:110px;
+  height:130px;
+  background:#5a5f3a;
+  border-radius:18px;
+  margin:10px auto 0;
+}
+
+/* breathing animation */
+@keyframes breathe{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(-6px)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+  <div class="character">
+    <div class="head">
+      <div class="hair"></div>
+    </div>
+    <div class="body"></div>
+  </div>
+</div>
+
+</body>
+</html>
